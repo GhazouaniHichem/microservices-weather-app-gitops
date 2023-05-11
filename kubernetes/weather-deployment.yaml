@@ -15,7 +15,7 @@ spec:
       containers:
         - name: weather
           image: ghazouanihm/weatherapp-weather:1.0
-          imagePullPolicy: Never
+          imagePullPolicy: Always
           env:
             - name: APIKEY
               value: "9bf8ba9657ba467ca4b123541231105"
