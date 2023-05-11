@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: weather-deployment
+spec:
+  replicas: 1
+  selector: 
+    matchLabels:
+      app: weather
+  template:
+    metadata:
+      labels:
+        app: weather
+    spec:
+      containers:
+        - name: weather
+          image: ghazouanihm/weatherapp-weather:1.0
+          imagePullPolicy: Never
+          env:
+            - name: APIKEY
+              value: "9bf8ba9657ba467ca4b123541231105"
+          ports:
+            - containerPort: 5000
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: weather-service
+spec:
+  selector:
+    app: weather
+  type: ClusterIP
+  ports:
+  - protocol: "TCP"
+    port: 5000
+    targetPort: 5000

@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ui-deployment
+spec:
+  replicas: 1
+  selector: 
+    matchLabels:
+      app: ui
+  template:
+    metadata:
+      labels:
+        app: ui
+    spec:
+      containers:
+        - name: ui
+          image: ghazouanihm/weatherapp-ui:1.0
+          imagePullPolicy: Never
+          env:
+            - name: AUTH_HOST
+              value: "auth-service"
+            - name: AUTH_PORT
+              value: "8080"
+            - name: WEATHER_HOST
+              value: "weather-service"
+            - name: WEATHER_PORT
+              value: "5000"
+          ports:
+            - containerPort: 3000
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: ui-service
+spec:
+  selector:
+    app: ui
+  type: LoadBalancer
+  ports:
+  - protocol: "TCP"
+    port: 3000
+    targetPort: 3000
