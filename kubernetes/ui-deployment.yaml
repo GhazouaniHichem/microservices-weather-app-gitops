@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: ui
-          image: ghazouanihm/weatherapp-ui:1.0
+          image: ghazouanihm/weatherapp-ui:4
           imagePullPolicy: Never
           env:
             - name: AUTH_HOST
