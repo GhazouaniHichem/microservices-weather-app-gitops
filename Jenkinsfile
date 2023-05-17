@@ -30,7 +30,7 @@ pipeline {
 
                 // Simple Deployment All-at-Once
 
-                sh 'sed -i "s/weatherapp-ui.*/weatherapp-ui:${IMAGE_TAG}/g" kubernetes/weather-app-simple-deployment/ui-deployment.yaml'
+                sh 'sed -i "s/weatherapp-ui.*/weatherapp-ui:1.0/g" kubernetes/weather-app-simple-deployment/ui-deployment.yaml'
 
                 // Canary Deployment using istio service mesh
 
