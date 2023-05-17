@@ -1,0 +1,25 @@
+---
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: first-app
+  namespace: staging
+spec:
+  hosts:
+    - test.k8s.devopswithghazouani.com
+    - weatherapp-ui
+  gateways:
+    - api
+  http:
+    - match:
+        - uri:
+            prefix: /
+      route:
+        - destination:
+            host: weatherapp-ui
+            subset: v1
+          weight: 50
+        - destination:
+            host: weatherapp-ui
+            subset: v2
+          weight: 50

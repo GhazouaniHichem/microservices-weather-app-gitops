@@ -1,0 +1,35 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: weatherapp-ui-v1
+  namespace: staging
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: weatherapp-ui
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: weatherapp-ui
+        version: v1
+        istio: monitor
+    spec:
+      containers:
+        - image: ghazouanihm/weatherapp-ui:1.0
+          imagePullPolicy: Always
+          name: weatherapp-ui
+          env:
+            - name: AUTH_HOST
+              value: "auth-service"
+            - name: AUTH_PORT
+              value: "8080"
+            - name: WEATHER_HOST
+              value: "weather-service"
+            - name: WEATHER_PORT
+              value: "5000"
+          ports:
+            - name: http
+              containerPort: 3000

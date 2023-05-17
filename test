@@ -1,0 +1,12 @@
+                withCredentials([string(credentialsId: 'github-cred', variable: 'GITHUB_TOKEN')]) {
+                    sh '''
+                        git config user.email "ghazouanih68@gmail.com"
+                        git config user.name "Ghazouani Hichem"
+                        BUILD_NUMBER=${IMAGE_TAG}
+                        
+                        sed -i "s/weatherapp-ui.*/weatherapp-ui:${IMAGE_TAG}/g" kubernetes/weather-app-simple-deployment/ui-deployment.yaml
+                        git add .
+                        git commit -m "Update deployment image to version ${IMAGE_TAG}"
+                        git push https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} main
+                    '''
+                }

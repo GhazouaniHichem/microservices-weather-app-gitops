@@ -1,0 +1,17 @@
+---
+apiVersion: networking.istio.io/v1beta1
+kind: DestinationRule
+metadata:
+  name: weatherapp-ui
+  namespace: staging
+spec:
+  host: weatherapp-ui
+  subsets:
+    - name: v1
+      labels:
+        app: weatherapp-ui
+        version: v1
+    - name: v2
+      labels:
+        app: weatherapp-ui
+        version: v2
