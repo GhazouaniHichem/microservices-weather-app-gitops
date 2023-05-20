@@ -1,7 +1,18 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: simple-deploy
+  labels:
+    monitoring: prometheus
+    istio-injection: enabled
+
+---
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: weather-deployment
+  namespace: simple-deploy
 spec:
   replicas: 1
   selector: 
@@ -28,11 +39,13 @@ apiVersion: v1
 kind: Service
 metadata:
   name: weather-service
+  namespace: simple-deploy
 spec:
   selector:
     app: weather
   type: ClusterIP
   ports:
-  - protocol: "TCP"
+  - name: tcp-weather
+    protocol: "TCP"
     port: 5000
     targetPort: 5000

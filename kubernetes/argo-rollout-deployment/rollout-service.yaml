@@ -2,12 +2,60 @@ apiVersion: v1
 kind: Service
 metadata:
   name: weatherapp-ui-rollout-service
-  namespace: staging
+  namespace: rollout-deploy
 spec:
   ports:
   - port: 3000
-    targetPort: http
+    targetPort: tcp-ui
     protocol: TCP
-    name: http
+    name: tcp-ui
   selector:
     app: weatherapp-ui-rollout
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: weatherapp-db-rollout-service
+  namespace: rollout-deploy
+spec:
+  ports:
+  - port: 3306
+    targetPort: tcp-db
+    protocol: TCP
+    name: tcp-db
+  selector:
+    app: weatherapp-db-rollout
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: weatherapp-weather-rollout-service
+  namespace: rollout-deploy
+spec:
+  ports:
+  - port: 5000
+    targetPort: tcp-weather
+    protocol: TCP
+    name: tcp-weather
+  selector:
+    app: weatherapp-weather-rollout
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: weatherapp-auth-rollout-service
+  namespace: rollout-deploy
+spec:
+  ports:
+  - port: 8080
+    targetPort: tcp-auth
+    protocol: TCP
+    name: tcp-auth
+  selector:
+    app: weatherapp-auth-rollout
