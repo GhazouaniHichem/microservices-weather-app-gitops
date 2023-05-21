@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
       - name: ui-rollout
-        image: ghazouanihm/weatherapp-ui:1.0
+        image: ghazouanihm/weatherapp-ui:11.1
         env:
             - name: AUTH_HOST
               value: "weatherapp-auth-rollout-service"
