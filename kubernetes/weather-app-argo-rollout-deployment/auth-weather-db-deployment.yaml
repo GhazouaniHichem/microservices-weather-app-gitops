@@ -36,7 +36,6 @@ spec:
       labels:
         app: auth
     spec:
-      replicas: 1
       containers:
       - name: auth
         image: ghazouanihm/weatherapp-auth:10.6
@@ -63,7 +62,6 @@ metadata:
   name: weather
   namespace: rollout-deploy
 spec:
-  replicas: 1
   selector: 
     matchLabels:
       app: weather
@@ -97,7 +95,6 @@ metadata:
   name: db
   namespace: rollout-deploy
 spec:
-  replicas: 1
   selector: 
     matchLabels:
       app: db
