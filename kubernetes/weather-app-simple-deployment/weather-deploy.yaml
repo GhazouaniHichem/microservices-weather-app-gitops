@@ -1,3 +1,15 @@
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: weather-app-api-key
+  namespace: simple-deploy
+type: Opaque
+data:
+  api_key: OWJmOGJhOTY1N2JhNDY3Y2E0YjEyMzU0MTIzMTEwNQ==
+
+---
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -19,7 +31,10 @@ spec:
           imagePullPolicy: Always
           env:
             - name: APIKEY
-              value: "9bf8ba9657ba467ca4b123541231105"
+              valueFrom:
+                secretKeyRef:
+                  name: weather-app-api-key
+                  key: api_key
           ports:
             - containerPort: 5000
 
