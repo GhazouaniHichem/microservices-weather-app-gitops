@@ -1,0 +1,43 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: weatherapp-ui-rollout
+  namespace: rollout-deploy
+spec:
+  replicas: 3
+  strategy:
+    canary:
+      steps:
+      - setWeight: 30
+      - pause: {duration: 20}
+      - setWeight: 60
+      - pause: {duration: 20}
+  revisionHistoryLimit: 2
+  selector:
+    matchLabels:
+      app: weatherapp-ui-rollout
+  template:
+    metadata:
+      labels:
+        app: weatherapp-ui-rollout
+    spec:
+      containers:
+      - name: weatherapp-ui-rollout
+        image: ghazouanihm/weatherapp-ui:1.0
+        env:
+            - name: AUTH_HOST
+              value: "weatherapp-auth-rollout-service"
+            - name: AUTH_PORT
+              value: "8080"
+            - name: WEATHER_HOST
+              value: "weatherapp-weather-rollout-service"
+            - name: WEATHER_PORT
+              value: "5000"
+        ports:
+        - name: tcp-ui
+          containerPort: 3000
+          protocol: TCP
+        resources:
+          requests:
+            memory: 32Mi
+            cpu: 5m

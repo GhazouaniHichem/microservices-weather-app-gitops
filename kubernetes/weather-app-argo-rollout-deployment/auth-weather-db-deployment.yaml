@@ -1,0 +1,101 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: auth-deployment
+  namespace: simple-deploy
+spec:
+  replicas: 1
+  selector: 
+    matchLabels:
+      app: auth
+  template:
+    metadata:
+      labels:
+        app: auth
+    spec:
+      replicas: 1
+      containers:
+      - name: auth
+        image: ghazouanihm/weatherapp-auth:10.6
+        imagePullPolicy: Always
+        env:
+          - name: DB_HOST
+            value: "weatherapp-db-rollout-service"
+          - name: DB_PASSWORD
+            value: "my-secret-pw"
+        ports:
+        - name: tcp-auth
+          containerPort: 8080
+          protocol: TCP
+        resources:
+          requests:
+            memory: 32Mi
+            cpu: 5m
+
+---
+
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: weather-deployment
+  namespace: simple-deploy
+spec:
+  replicas: 1
+  selector: 
+    matchLabels:
+      app: weather
+  template:
+    metadata:
+      labels:
+        app: weather
+    spec:
+      containers:
+      - name: weather
+        image: ghazouanihm/weatherapp-weather:10.6
+        imagePullPolicy: Always
+        env:
+          - name: APIKEY
+            value: "9bf8ba9657ba467ca4b123541231105"
+        ports:
+        - name: tcp-weather
+          containerPort: 5000
+          protocol: TCP
+        resources:
+          requests:
+            memory: 32Mi
+            cpu: 5m
+
+---
+
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: db-deployment
+  namespace: simple-deploy
+spec:
+  replicas: 1
+  selector: 
+    matchLabels:
+      app: db
+  template:
+    metadata:
+      labels:
+        app: db
+    spec:
+      containers:
+        - name: db
+          image: mysql
+          imagePullPolicy: Always
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: "my-secret-pw"
+          ports:
+          - name: tcp-db
+            containerPort: 3306
+            protocol: TCP
+          resources:
+            requests:
+              memory: 32Mi
+              cpu: 5m

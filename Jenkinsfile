@@ -26,7 +26,7 @@ pipeline {
             }
             steps {
 
-                // Simple Deployment All-at-Once
+                // Simple Deployment All-at-Once using istio service mesh
 
                 sh 'sed -i "s/weatherapp-ui.*/weatherapp-ui:${IMAGE_TAG}/g" kubernetes/weather-app-simple-deployment/ui-deploy.yaml'
 

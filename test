@@ -1,12 +1,121 @@
-                withCredentials([string(credentialsId: 'github-cred', variable: 'GITHUB_TOKEN')]) {
-                    sh '''
-                        git config user.email "ghazouanih68@gmail.com"
-                        git config user.name "Ghazouani Hichem"
-                        BUILD_NUMBER=${IMAGE_TAG}
-                        
-                        sed -i "s/weatherapp-ui.*/weatherapp-ui:${IMAGE_TAG}/g" kubernetes/weather-app-simple-deployment/ui-deployment.yaml
-                        git add .
-                        git commit -m "Update deployment image to version ${IMAGE_TAG}"
-                        git push https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} main
-                    '''
-                }
+---
+
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: weatherapp-auth-rollout
+  namespace: rollout-deploy
+spec:
+  replicas: 3
+  strategy:
+    canary:
+      steps:
+      - setWeight: 30
+      - pause: {duration: 20}
+      - setWeight: 60
+      - pause: {duration: 20}
+  revisionHistoryLimit: 2
+  selector:
+    matchLabels:
+      app: weatherapp-auth-rollout
+  template:
+    metadata:
+      labels:
+        app: weatherapp-auth-rollout
+    spec:
+      containers:
+      - name: weatherapp-auth-rollout
+        image: ghazouanihm/weatherapp-auth:1.0
+        env:
+            - name: DB_HOST
+              value: "db-service"
+            - name: DB_PASSWORD
+              value: "my-secret-pw"
+        ports:
+        - name: tcp-auth
+          containerPort: 8080
+          protocol: TCP
+        resources:
+          requests:
+            memory: 32Mi
+            cpu: 5m
+
+---
+
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: weatherapp-db-rollout
+  namespace: rollout-deploy
+spec:
+  replicas: 3
+  strategy:
+    canary:
+      steps:
+      - setWeight: 30
+      - pause: {duration: 20}
+      - setWeight: 60
+      - pause: {duration: 20}
+  revisionHistoryLimit: 2
+  selector:
+    matchLabels:
+      app: weatherapp-db-rollout
+  template:
+    metadata:
+      labels:
+        app: weatherapp-db-rollout
+    spec:
+      containers:
+      - name: weatherapp-db-rollout
+        image: ghazouanihm/weatherapp-db:1.0
+        env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: "my-secret-pw"
+        ports:
+        - name: tcp-db
+          containerPort: 3306
+          protocol: TCP
+        resources:
+          requests:
+            memory: 32Mi
+            cpu: 5m
+
+---
+
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: weatherapp-weather-rollout
+  namespace: rollout-deploy
+spec:
+  replicas: 3
+  strategy:
+    canary:
+      steps:
+      - setWeight: 30
+      - pause: {duration: 20}
+      - setWeight: 60
+      - pause: {duration: 20}
+  revisionHistoryLimit: 2
+  selector:
+    matchLabels:
+      app: weatherapp-weather-rollout
+  template:
+    metadata:
+      labels:
+        app: weatherapp-weather-rollout
+    spec:
+      containers:
+      - name: weatherapp-weather-rollout
+        image: ghazouanihm/weatherapp-weather:1.0
+        env:
+            - name: APIKEY
+              value: "9bf8ba9657ba467ca4b123541231105"
+        ports:
+        - name: tcp-weather
+          containerPort: 5000
+          protocol: TCP
+        resources:
+          requests:
+            memory: 32Mi
+            cpu: 5m
