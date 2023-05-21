@@ -23,13 +23,12 @@ pipeline {
             environment {
                 GIT_REPO_NAME = "microservices-weather-app-gitops"
                 GIT_USER_NAME = "GhazouaniHichem"
-                TAG = "${IMAGE_TAG}"
             }
             steps {
 
                 // Simple Deployment All-at-Once
 
-                sh 'sed -i "s/weatherapp-ui.*/weatherapp-ui:${env.TAG}/g" kubernetes/weather-app-simple-deployment/ui-deploy.yaml'
+                sh 'sed -i "s/weatherapp-ui.*/weatherapp-ui:${IMAGE_TAG}/g" kubernetes/weather-app-simple-deployment/ui-deploy.yaml'
 
                 // Canary Deployment using istio service mesh
 
@@ -46,7 +45,7 @@ pipeline {
                         git config user.name "Ghazouani Hichem"
 
                         git add .
-                        git commit -m "Update deployment image to version ${env.TAG}"
+                        git commit -m "Update deployment image to version ${IMAGE_TAG}"
                         git push https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} main
                     '''
                 }
