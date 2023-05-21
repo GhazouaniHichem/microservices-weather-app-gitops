@@ -36,7 +36,7 @@ pipeline {
 
                 // Canary Deployment with argo rollouts and istio service mesh
 
-//                sh 'sed -i "s/weatherapp-ui.*/weatherapp-ui:${IMAGE_TAG}/g" kubernetes/weather-app-simple-deployment/ui-deployment.yaml'
+                sh 'sed -i "s/weatherapp-ui.*/weatherapp-ui:${IMAGE_TAG}/g" kubernetes/weather-app-argo-rollout-deployment/ui-ms-rollout-deployment.yaml'
 
                 
                 withCredentials([string(credentialsId: 'github-cred', variable: 'GITHUB_TOKEN')]) {

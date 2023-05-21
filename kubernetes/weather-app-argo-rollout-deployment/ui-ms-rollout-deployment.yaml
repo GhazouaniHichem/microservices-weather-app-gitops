@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Rollout
 metadata:
-  name: weatherapp-ui-rollout
+  name: ui-rollout
   namespace: rollout-deploy
 spec:
   replicas: 3
@@ -15,14 +15,14 @@ spec:
   revisionHistoryLimit: 2
   selector:
     matchLabels:
-      app: weatherapp-ui-rollout
+      app: ui-rollout
   template:
     metadata:
       labels:
-        app: weatherapp-ui-rollout
+        app: ui-rollout
     spec:
       containers:
-      - name: weatherapp-ui-rollout
+      - name: ui-rollout
         image: ghazouanihm/weatherapp-ui:1.0
         env:
             - name: AUTH_HOST
