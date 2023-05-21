@@ -10,7 +10,7 @@ spec:
     protocol: TCP
     name: tcp-ui
   selector:
-    app: weatherapp-ui-rollout
+    app: ui-rollout
 
 ---
 
@@ -26,7 +26,7 @@ spec:
     protocol: TCP
     name: tcp-db
   selector:
-    app: weatherapp-db-rollout
+    app: db
 
 ---
 
@@ -42,7 +42,7 @@ spec:
     protocol: TCP
     name: tcp-weather
   selector:
-    app: weatherapp-weather-rollout
+    app: weather
 
 ---
 
@@ -58,4 +58,4 @@ spec:
     protocol: TCP
     name: tcp-auth
   selector:
-    app: weatherapp-auth-rollout
+    app: auth

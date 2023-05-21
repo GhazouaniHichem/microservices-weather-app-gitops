@@ -1,8 +1,8 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: auth-deployment
-  namespace: simple-deploy
+  name: auth
+  namespace: rollout-deploy
 spec:
   replicas: 1
   selector: 
@@ -38,8 +38,8 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: weather-deployment
-  namespace: simple-deploy
+  name: weather
+  namespace: rollout-deploy
 spec:
   replicas: 1
   selector: 
@@ -72,8 +72,8 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: db-deployment
-  namespace: simple-deploy
+  name: db
+  namespace: rollout-deploy
 spec:
   replicas: 1
   selector: 
