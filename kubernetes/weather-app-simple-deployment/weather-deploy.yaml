@@ -25,7 +25,7 @@ spec:
     spec:
       containers:
         - name: weather
-          image: ghazouanihm/weatherapp-weather:1.0
+          image: ghazouanihm/weatherapp-weather:10.6
           imagePullPolicy: Always
           env:
             - name: APIKEY

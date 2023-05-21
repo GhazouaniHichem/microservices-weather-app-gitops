@@ -25,7 +25,7 @@ spec:
     spec:
       containers:
         - name: auth
-          image: ghazouanihm/weatherapp-auth:1.0
+          image: ghazouanihm/weatherapp-auth:10.6
           imagePullPolicy: Always
           env:
             - name: DB_HOST
