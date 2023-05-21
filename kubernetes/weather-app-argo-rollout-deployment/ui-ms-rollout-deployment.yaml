@@ -24,6 +24,7 @@ spec:
       containers:
       - name: ui-rollout
         image: ghazouanihm/weatherapp-ui:11.4
+        imagePullPolicy: Always
         env:
             - name: AUTH_HOST
               value: "weatherapp-auth-rollout-service"
