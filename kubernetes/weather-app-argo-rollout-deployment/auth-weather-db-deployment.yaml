@@ -1,3 +1,15 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: rollout-deploy
+  labels:
+    monitoring: prometheus
+    istio-injection: enabled
+
+---
+
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
