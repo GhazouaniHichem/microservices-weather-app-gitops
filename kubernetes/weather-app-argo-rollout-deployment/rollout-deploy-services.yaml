@@ -11,6 +11,7 @@ spec:
     name: ui-tcp
   selector:
     app: ui-rollout
+  type: LoadBalancer
 
 ---
 
