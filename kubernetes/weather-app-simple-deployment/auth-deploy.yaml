@@ -1,3 +1,15 @@
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: weather-app-mysql-password
+  namespace: simple-deploy
+type: Opaque
+data:
+  mysql_password: bXktc2VjcmV0LXB3
+
+---
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -21,7 +33,10 @@ spec:
             - name: DB_HOST
               value: "db-service"
             - name: DB_PASSWORD
-              value: "my-secret-pw"
+              valueFrom:
+                secretKeyRef:
+                  name: weather-app-mysql-password
+                  key: mysql_password
           ports:
             - containerPort: 8080
 
