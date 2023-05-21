@@ -34,7 +34,7 @@ spec:
     spec:
       containers:
       - name: ui-rollout
-        image: ghazouanihm/weatherapp-ui:11.4
+        image: ghazouanihm/weatherapp-ui:11.5
         imagePullPolicy: Always
         env:
             - name: AUTH_HOST

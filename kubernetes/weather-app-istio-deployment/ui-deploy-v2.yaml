@@ -2,25 +2,25 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: weatherapp-ui-v2
+  name: weatherapp-ui:11.5
   namespace: staging
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: weatherapp-ui
+      app: weatherapp-ui:11.5
       version: v2
   template:
     metadata:
       labels:
-        app: weatherapp-ui
+        app: weatherapp-ui:11.5
         version: v2
         istio: monitor
     spec:
       containers:
-        - image: ghazouanihm/weatherapp-ui:11.4
+        - image: ghazouanihm/weatherapp-ui:11.5
           imagePullPolicy: Always
-          name: weatherapp-ui
+          name: weatherapp-ui:11.5
           env:
             - name: AUTH_HOST
               value: "auth-service"
