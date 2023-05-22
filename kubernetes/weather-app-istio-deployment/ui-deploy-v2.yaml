@@ -18,7 +18,7 @@ spec:
         istio: monitor
     spec:
       containers:
-        - image: ghazouanihm/weatherapp-ui:12.4
+        - image: ghazouanihm/weatherapp-ui:12.8
           imagePullPolicy: Always
           name: ui
           env:
