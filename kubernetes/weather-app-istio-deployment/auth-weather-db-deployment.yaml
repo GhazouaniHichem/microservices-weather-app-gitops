@@ -42,7 +42,7 @@ spec:
         imagePullPolicy: Always
         env:
             - name: DB_HOST
-              value: "weatherapp-db-rollout-service"
+              value: "weatherapp-db-istio-service"
             - name: DB_PASSWORD
               valueFrom:
                 secretKeyRef:

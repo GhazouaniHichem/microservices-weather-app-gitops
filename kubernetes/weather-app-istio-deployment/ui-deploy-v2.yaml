@@ -23,11 +23,11 @@ spec:
           name: ui
           env:
             - name: AUTH_HOST
-              value: "auth-service"
+              value: "weatherapp-auth-istio-service"
             - name: AUTH_PORT
               value: "8080"
             - name: WEATHER_HOST
-              value: "weather-service"
+              value: "weatherapp-weather-istio-service"
             - name: WEATHER_PORT
               value: "5000"
           ports:
