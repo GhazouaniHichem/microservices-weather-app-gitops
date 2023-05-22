@@ -2,25 +2,25 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: weatherapp-ui:11.6
-  namespace: staging
+  name: ui-v2
+  namespace: istio-deploy
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: weatherapp-ui:11.6
+      app: ui
       version: v2
   template:
     metadata:
       labels:
-        app: weatherapp-ui:11.6
+        app: ui
         version: v2
         istio: monitor
     spec:
       containers:
         - image: ghazouanihm/weatherapp-ui:11.6
           imagePullPolicy: Always
-          name: weatherapp-ui:11.6
+          name: ui
           env:
             - name: AUTH_HOST
               value: "auth-service"
@@ -31,5 +31,5 @@ spec:
             - name: WEATHER_PORT
               value: "5000"
           ports:
-            - name: http
+            - name: ui-tcp
               containerPort: 3000

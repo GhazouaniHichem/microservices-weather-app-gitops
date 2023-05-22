@@ -6,7 +6,7 @@ metadata:
   namespace: staging
 spec:
   ports:
-    - name: http
+    - name: tcp-ui
       port: 3000
   selector:
-    app: weatherapp-ui
+    app: ui

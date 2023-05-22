@@ -2,8 +2,8 @@
 apiVersion: networking.istio.io/v1beta1
 kind: Gateway
 metadata:
-  name: api
-  namespace: staging
+  name: ui-api
+  namespace: istio-deploy
 spec:
   selector:
     istio: gateway
@@ -13,4 +13,4 @@ spec:
         name: http
         protocol: HTTP
       hosts:
-        - test.k8s.devopswithghazouani.com
+        - weatherapp.devopswithghazouani.com
