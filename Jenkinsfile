@@ -32,7 +32,7 @@ pipeline {
 
                 // Canary Deployment using istio service mesh
 
-//                sh 'sed -i "s/weatherapp-ui.*/weatherapp-ui:${IMAGE_TAG}/g" kubernetes/weather-app-istio-deployment/ui-deploy-v2.yaml'
+                sh 'sed -i "s/weatherapp-ui.*/weatherapp-ui:${IMAGE_TAG}/g" kubernetes/weather-app-istio-deployment/ui-deploy-v2.yaml'
 
                 // Canary Deployment with argo rollouts and istio service mesh
 
