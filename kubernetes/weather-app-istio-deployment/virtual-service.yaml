@@ -16,10 +16,10 @@ spec:
             prefix: /
       route:
         - destination:
-            host: ui-destination-rule
+            host: ui
             subset: v1
           weight: 50
         - destination:
-            host: ui-destination-rule
+            host: ui
             subset: v2
           weight: 50
